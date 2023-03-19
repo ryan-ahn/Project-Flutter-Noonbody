@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:noonbody/widget/bottom_navigation.dart';
+import './styles/theme.dart' as style;
+import './screen/camera_screen.dart' as screen;
+import './screen/gallery_screen.dart' as screen;
+import './screen/setting_screen.dart' as screen;
 
 void main() {
   runApp(MaterialApp(
-    theme: ThemeData(
-      appBarTheme: AppBarTheme(color: Color(0xff202020)),
-      bottomAppBarTheme: BottomAppBarTheme(color: Color(0xff202020))
-    ),
+    theme: style.globalTheme,
     home: MyApp(),
   ));
 }
@@ -25,9 +26,17 @@ class _MyAppState extends State<MyApp> {
   build(context) {
     return DefaultTabController(
         length: 3,
-        child:Scaffold(
-            body: Text('hi2'),
-            bottomNavigationBar: BottomAppBar(child: BottomNavigation(),)
-    ));
+        child: Scaffold(
+            body: TabBarView(
+              physics: NeverScrollableScrollPhysics(),
+              children: [
+                screen.GalleryScreen(),
+                screen.CameraScreen(),
+                screen.SettingScreen()
+              ],
+            ),
+            bottomNavigationBar: BottomAppBar(
+              child: BottomNavigation(),
+            )));
   }
 }
